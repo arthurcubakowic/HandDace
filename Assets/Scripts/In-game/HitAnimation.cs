@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HitAnimation : MonoBehaviour
 {
@@ -16,11 +14,6 @@ public class HitAnimation : MonoBehaviour
     void Start()
     {
         hitAnimation = this; // singleton
-    }
-
-    void Update()
-    {
-        
     }
 
     public void HitA(int num) // instancia um objeto para cada tipo de acerto

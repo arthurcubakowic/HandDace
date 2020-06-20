@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ButtonController : MonoBehaviour
 {
@@ -19,7 +17,7 @@ public class ButtonController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(buttonKey) || Input.GetKeyDown(buttonKey2)) // Se o botão 1 ou botão 2 estiver precionado
@@ -40,4 +38,5 @@ public class ButtonController : MonoBehaviour
         buttonKey2 = B;
     }
 }
+
 // Lembrando que esse código lê apenas eventos de precionar e soltar teclas, um botão que se mantem precionado nessa lógica é um botão que ainda não foi solto e nao um precionado propriamente dito

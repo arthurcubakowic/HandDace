@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
+﻿using UnityEngine;
 
 public class MemoryDontDestroy : MonoBehaviour
 {
@@ -39,11 +35,6 @@ public class MemoryDontDestroy : MonoBehaviour
         down2 = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("down2Key", "S"));
 
     }
-
-    void Start()
-    {
-
-    } 
 }
 
 

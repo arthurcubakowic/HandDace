@@ -8,9 +8,4 @@ public class DestroyAnimation : MonoBehaviour
     {
         Destroy(gameObject, 0.5f); // destroy a si mesmo
     }
-
-    void Update()
-    {
-        
-    }
 }
