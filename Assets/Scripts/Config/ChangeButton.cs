@@ -1,55 +1,96 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class ChangeButton : MonoBehaviour // AINDA NAO FOI IMPLEMENTADO
+public class ChangeButton : MonoBehaviour
 {
-    private Button button { get { return GetComponent<Button>(); } }
+    Event keyEvent;
+    KeyCode newKey;
 
+    bool waitingForKey;
 
-
-    public MemoryDontDestroy settings;
-
-    public KeyCode left1;
-    public KeyCode left2;
-
-    // Start is called before the first frame update
     void Start()
     {
-        button.onClick.AddListener(() => changeAll());
-
+        waitingForKey = false;
     }
 
-    void changeAll()
+    void Update()
     {
-        left1 = KeyCode.LeftArrow;
-        left2 = KeyCode.B;
-
-        Input.GetKeyDown(left2);
-
-        GameObject controles = GameObject.Find("Settings");
-        settings = controles.GetComponent<MemoryDontDestroy>();  // Referencia o GameObject com os Bottões configurados 
-
-        Debug.Log("Opa negão");
-
-        settings.left1 = left1;
-        settings.left2 = left2;
+        
     }
-    public void PressedButton()
+
+    void OnGUI()
     {
-        foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
+        keyEvent = Event.current;
+
+        if(keyEvent.isKey && waitingForKey)
         {
-            if (Input.GetKeyDown(kcode))
-            {
-                left1 = kcode;
-            }
-
-
+            newKey = keyEvent.keyCode;
+            waitingForKey = false;
         }
     }
 
+    public void StartAssignment (String keyName)
+    {
+        if (!waitingForKey)
+        {
+            StartCoroutine(AssignKey(keyName));
+        }
+    }
+
+    IEnumerator WaitForKey()
+    {
+        while (!keyEvent.isKey)
+            yield return null;
+    }
+
+    public IEnumerator AssignKey(string keyName)
+    {
+        waitingForKey = true;
+
+        yield return WaitForKey();
+
+        switch (keyName)
+        {
+            case "left1":
+                MemoryDontDestroy.memory.left1 = newKey;
+                PlayerPrefs.SetString("left1Key", MemoryDontDestroy.memory.left1.ToString());
+                break;
+            case "left2":
+                MemoryDontDestroy.memory.left2 = newKey;
+                PlayerPrefs.SetString("left2Key", MemoryDontDestroy.memory.left2.ToString());
+                break;
+            case "up1":
+                MemoryDontDestroy.memory.up1 = newKey;
+                PlayerPrefs.SetString("up1Key", MemoryDontDestroy.memory.up1.ToString());
+                break;
+            case "up2":
+                MemoryDontDestroy.memory.up2 = newKey;
+                PlayerPrefs.SetString("up2Key", MemoryDontDestroy.memory.up2.ToString());
+                break;
+            case "right1":
+                MemoryDontDestroy.memory.right1 = newKey;
+                PlayerPrefs.SetString("right1Key", MemoryDontDestroy.memory.right1.ToString());
+                break;
+            case "right2":
+                MemoryDontDestroy.memory.right2 = newKey;
+                PlayerPrefs.SetString("right2Key", MemoryDontDestroy.memory.right2.ToString());
+                break;
+            case "down1":
+                MemoryDontDestroy.memory.down1 = newKey;
+                PlayerPrefs.SetString("down1Key", MemoryDontDestroy.memory.down1.ToString());
+                break;
+            case "down2":
+                MemoryDontDestroy.memory.down2 = newKey;
+                PlayerPrefs.SetString("down2Key", MemoryDontDestroy.memory.down2.ToString());
+                break;
+
+        }
+
+        yield return null;
+    }
 }
 
+
+// Codigo baseado em um tutorial do canal Studica News
+// https://www.youtube.com/watch?v=iSxifRKQKAA

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2156387391917201044}
   m_Layer: 0
   m_Name: Marvelous
-  m_TagString: Untagged
+  m_TagString: HitNote
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

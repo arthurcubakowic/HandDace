@@ -22,7 +22,6 @@ public class ButtonText : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         GameObject controles = GameObject.Find("Settings");

@@ -16,6 +16,7 @@ public class ButtonController : MonoBehaviour
     void Start()
     {
         buttonState = GetComponent<SpriteRenderer>(); // Trás o Sprite a partir do Game Object  
+
     }
 
     // Update is called once per frame
@@ -33,7 +34,7 @@ public class ButtonController : MonoBehaviour
         }
     }
 
-    public void setControl(KeyCode A, KeyCode B) // troca os KeyCodes dos botões
+    public void SetControl(KeyCode A, KeyCode B) // troca os KeyCodes dos botões
     {
         buttonKey = A;
         buttonKey2 = B;

@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject results;        // Cria uma referência aos resultados
 
+    public GameObject combosObject;     // Cria uma referência ao GameObject combos
+
+    public Fader transition; // referencia o Fader de transição
+    public GameObject transitionObj; // referencia o GameObject de transição
+
 
     public AudioSource musica;   // Variável que contem a música
     public bool startPlaying;    // Variável para começar a música
@@ -25,6 +30,7 @@ public class GameManager : MonoBehaviour
     public int marvelousHits;    // total de notas Marvelous
     public int missedHits;       // total de notas Erradas
     public int goodHits;         // total de notas Good
+    public int maxCombo;         // Combo Maximo da sua performance
 
     public int combo;            // Contador de combo
 
@@ -35,9 +41,24 @@ public class GameManager : MonoBehaviour
     public bool stopMusic;
 
 
+    private void Awake() // Basicamente tudo que está aqui é para me ajudar a programar, não influencia diretamente na Gameplay, mas evita possiveis erros 
+    {
+        combosObject.SetActive(false); // Deixa a tela de combo desativada
+        results.SetActive(false);      // Deixa a tela de resultados desativada
+        transitionObj.SetActive(true); // Deixa o Fader ativado
+
+        if (!MemoryDontDestroy.memory) // Se o jogo não for iniciado corretamente e não abrir o settings de controle, ele volta ao menu inicial
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
+    }
+
     void Start()
     {
         instance = this; // garante que só tenha um game manager
+
+        transition.GetComponent<Fader>();
 
         GameObject hitani = GameObject.Find("Animation");
         hitAnimation = hitani.GetComponent<HitAnimation>();
@@ -74,6 +95,14 @@ public class GameManager : MonoBehaviour
         {
             results.SetActive(true);
         }
+
+        if (results.activeInHierarchy)  // Assim que o Display de resultados aparecer na tela, quando qualquer tecla for apertada o jogo volta para o começo
+        {
+            if (Input.anyKeyDown)
+            {
+                transition.FadeToGame();
+            }
+        }
     }
 
     public void NoteHit()                        // Nota foi batida 
@@ -103,15 +132,27 @@ public class GameManager : MonoBehaviour
         if (hit == 1)
         {
             combo++;
+
+            if (combo > maxCombo) maxCombo = combo; // Faz com que a variavel maxCombo receba o maior combo que o jogador fez na partida
+
+            if (combo > 3)
+            {
+                combosObject.SetActive(true); // Se o combo do jogador for maior que 3, a tela de combo fica visivel 
+            }
         }
         else
         {
             combo = 0;
+            combosObject.SetActive(false); // Se o combo do jogador for menor que 3, a tela de combo fica desativada 
         }
+
     }
 
     public void AddHit(int dist)                 // Adiciona pontos baseado no tipo de acerto
     {
+        GameObject toDestroy = GameObject.FindGameObjectWithTag("HitNote");
+        if (toDestroy != null) toDestroy.SetActive(false);
+            
         if (dist == 1)                           // Hitou um Marvelous
         {
             Debug.Log("Marvelous");

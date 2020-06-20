@@ -12,6 +12,7 @@ public class HitAnimation : MonoBehaviour
     public GameObject good;
     public GameObject miss;
 
+
     void Start()
     {
         hitAnimation = this; // singleton
@@ -19,8 +20,7 @@ public class HitAnimation : MonoBehaviour
 
     void Update()
     {
-
-
+        
     }
 
     public void HitA(int num) // instancia um objeto para cada tipo de acerto
@@ -45,6 +45,5 @@ public class HitAnimation : MonoBehaviour
         {
             Instantiate(miss, transform.position, miss.transform.rotation);
         } 
-
     }
 }

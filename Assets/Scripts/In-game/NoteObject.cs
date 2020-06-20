@@ -9,19 +9,15 @@ public class NoteObject : MonoBehaviour
     public KeyCode buttonKey;        // Tecla escolhida para o botão
     public KeyCode buttonKey2;       // Segunda tecla escolhida para o botão
 
-    public SetController controls;   // variável com as teclas certas
-
     public string thisTag;           // tag da seta
 
 
     void Start()
     {
-        GameObject controles = GameObject.Find("Controls");
-        controls = controles.GetComponent<SetController>(); // trás os botões setados na variável global
 
         thisTag = this.tag;                                 // adiciona a tag da seta em um script para o codigo saber qual tipo de seta é
 
-        setControl();                                       // Sincroniza os botões da seta com os dos Buttons
+        SetControl();                                       // Sincroniza os botões da seta com os dos Buttons
     }
 
     // Update is called once per frame
@@ -76,25 +72,25 @@ public class NoteObject : MonoBehaviour
         }
     }
 
-    public void setControl()  // Todas as setas recebem o mesmo botão dos Buttons ao inicio da cena
+    public void SetControl()  // Todas as setas recebem o mesmo botão dos Buttons ao inicio da cena
     {
         switch (thisTag)
         {
             case "Left":
-                buttonKey = controls.left1;
-                buttonKey2 = controls.left2;
+                buttonKey = MemoryDontDestroy.memory.left1;
+                buttonKey2 = MemoryDontDestroy.memory.left2;
                 break;
             case "Right":
-                buttonKey = controls.right1;
-                buttonKey2 = controls.right2;
+                buttonKey = MemoryDontDestroy.memory.right1;
+                buttonKey2 = MemoryDontDestroy.memory.right2;
                 break;
             case "Up":
-                buttonKey = controls.up1;
-                buttonKey2 = controls.up2;
+                buttonKey = MemoryDontDestroy.memory.up1;
+                buttonKey2 = MemoryDontDestroy.memory.up2;
                 break;
             case "Down":
-                buttonKey = controls.down1;
-                buttonKey2 = controls.down2;
+                buttonKey = MemoryDontDestroy.memory.down1;
+                buttonKey2 = MemoryDontDestroy.memory.down2;
                 break;
         }
     }
